@@ -32,24 +32,17 @@ const Chart = ({ colors, location, building, data }) => {
         text: "Water Consumption Movements",
         align: "left",
       },
+      markers: {
+        // size: 6,
+        // strokeWidth: 0,
+        hover: {
+          size: 8,
+        },
+      },
       xaxis: {
         type: "datetime",
-        categories: [],
         labels: {
-          formatter: function (value, timestamp) {
-            return new Date(value).toLocaleString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              second: "numeric",
-              hour12: true,
-            });
-          },
-          style: {
-            fontSize: "10px",
-          },
+          show: false, // Hide x-axis labels
         },
       },
       yaxis: {
@@ -57,6 +50,36 @@ const Chart = ({ colors, location, building, data }) => {
       },
       legend: {
         horizontalAlign: "left",
+      },
+      tooltip: {
+        x: {
+          formatter: function (value) {
+            // Convert timestamp to JavaScript Date object
+            const date = new Date(value);
+            // Get month, date, year, hours, and minutes
+            const month = date.toLocaleString("default", { month: "short" });
+            const day = date.getDate();
+            const year = date.getFullYear();
+            let hours = date.getHours();
+            const minutes = date.getMinutes();
+            let period = "AM";
+
+            // Convert hours to 12-hour format and determine AM/PM
+            if (hours === 0) {
+              hours = 12;
+            } else if (hours === 12) {
+              period = "PM";
+            } else if (hours > 12) {
+              hours -= 12;
+              period = "PM";
+            }
+
+            // Format time (e.g., "MMM DD, YYYY hh:MM AM/PM")
+            return `${month} ${day}, ${year} ${
+              hours < 10 ? "0" + hours : hours
+            }:${minutes < 10 ? "0" + minutes : minutes} ${period}`;
+          },
+        },
       },
       colors: [colors],
     },

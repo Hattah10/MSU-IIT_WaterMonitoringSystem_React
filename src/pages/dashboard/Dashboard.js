@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const [usageCCSRight, setUsageCCSRight] = useState();
+  const [usageCCSLeft, setUsageCCSLeft] = useState();
+  const [usageDormLeft, setUsageDormLeft] = useState();
+  const [usageDormRight, setUsageDormRight] = useState();
 
   const getUsageCCSRight = async () => {
     try {
@@ -26,8 +29,6 @@ const Dashboard = () => {
     }
   };
 
-  const [usageCCSLeft, setUsageCCSLeft] = useState();
-
   const getUsageCCSLeft = async () => {
     try {
       const q = query(
@@ -45,8 +46,6 @@ const Dashboard = () => {
     }
   };
 
-  const [usageDormLeft, setUsageDormLeft] = useState();
-
   const getUsageDormLeft = async () => {
     try {
       const q = query(
@@ -63,8 +62,6 @@ const Dashboard = () => {
       console.error("Error fetching data: ", error);
     }
   };
-
-  const [usageDormRight, setUsageDormRight] = useState();
 
   const getUsageDormRight = async () => {
     try {
